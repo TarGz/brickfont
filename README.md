@@ -1,7 +1,7 @@
 28_Setup
 ========
 
-Setup with Jade, Scss, Bootstrap, Livereload and static server
+Setup with Gulp, Jade, Scss, Bootstrap, Livereload and static server
 
 
 ### Install 
