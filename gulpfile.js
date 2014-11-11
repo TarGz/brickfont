@@ -90,11 +90,14 @@ gulp.task('jade', function() {
  
 
 // --- Vendors ---
-gulp.task('bootstrap_css', function() {
+gulp.task('bootstrap', function() {
 	return gulp.src('bower_components/bootstrap/dist/**/*.*')
   	.pipe(copy('dist/vendor',{prefix:1}));
 });
-
+gulp.task('jquery', function() {
+  return gulp.src('bower_components/jquery/dist/**/*.*')
+    .pipe(copy('dist/vendor',{prefix:1}));
+});
 
 // --- Watch ---
 gulp.task('watch', function () {
@@ -109,7 +112,7 @@ gulp.task('build', ['clean'], function() {
     gulp.start('css', 'js', 'jade','images','vendor');
 });
 
-gulp.task('vendor', ['bootstrap_css']);
+gulp.task('vendor', ['bootstrap','jquery']);
 
 gulp.task('default', ['build'], function() {
     gulp.start('connect', 'watch');
