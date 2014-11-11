@@ -1,7 +1,7 @@
 doctype html
 
 block path
-	- path = '';
+	- path = '/';
 
 html(class="no-js", lang="fr", appcache=appcache)
 	head
@@ -12,7 +12,8 @@ html(class="no-js", lang="fr", appcache=appcache)
 		//meta(name="viewport", content="user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width")
 		meta(name="viewport", content="initial-scale=1")
 		// Stylesheet
-		link(rel="stylesheet", href=path+"stylesheets/uikit.aroseindigo.css")
+		link(rel="stylesheet", href=path+"vendor/bootstrap/dist/css/bootstrap.css")
+		link(rel="stylesheet", href=path+"vendor/bootstrap/dist/css/bootstrap-theme.css")
 		// Apple icons
 		link(rel="apple-touch-icon",sizes="57x57", href=path+"img/favicons/apple-touch-icon-57x57.png")
 		link(rel="apple-touch-icon",sizes="114x114", href=path+"img/favicons/apple-touch-icon-114x114.png")
@@ -34,7 +35,6 @@ html(class="no-js", lang="fr", appcache=appcache)
 		meta(property="og:description", content="$balise meta description")
 
 		
-		
 		block head
 
 
@@ -42,5 +42,4 @@ html(class="no-js", lang="fr", appcache=appcache)
 
 		block content
 
-	script(src='/js/all.min.js')
-		
+		block script

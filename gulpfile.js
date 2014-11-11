@@ -105,11 +105,15 @@ gulp.task('watch', function () {
 
 
 // --- Tasks ---
-gulp.task('default', ['clean'], function() {
+gulp.task('build', ['clean'], function() {
     gulp.start('css', 'js', 'jade','images','vendor');
 });
+
 gulp.task('vendor', ['bootstrap_css']);
-gulp.task('serve', ['default','connect','watch']);
+
+gulp.task('default', ['build'], function() {
+    gulp.start('connect', 'watch');
+});
 
 
 
