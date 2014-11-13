@@ -24,9 +24,9 @@ var gulp        = require('gulp'),
 // --- Variables --- 
 var source_paths = {
 	scss: ['src/stylesheets/**/*.scss'],
-  	script: ['src/js/**/*.js'],
-  	image: ['src/img/**/*'],
-  	jade: ['src/views/**/*.jade']
+  script: ['src/js/**/*.js'],
+  image: ['src/img/**/*'],
+  jade: ['src/views/**/*.jade']
 };
 
 // --- Server & Reload --- 
