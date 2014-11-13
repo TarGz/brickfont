@@ -12,7 +12,7 @@ npm install
 bower i
 ```
 
-Install othe Chrome [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)  plugin 
+Install the Chrome [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)  plugin 
 
 
 
