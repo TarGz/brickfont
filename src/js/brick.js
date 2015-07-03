@@ -11,13 +11,13 @@
                 container = document.createElement( 'div' );
                 document.body.appendChild( container );
 
-                camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, .1, 15 );
+                camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, .1, 1000 );
                 
 
 
 
                 scene = new THREE.Scene();
-                scene.fog = new THREE.Fog( 0xefefef, 2, 100.5 );
+                scene.fog = new THREE.Fog( 0xefefef, 2, 1500.5 );
 
 
 
@@ -51,18 +51,23 @@
 
                 var loader = new THREE.STLLoader();
                 
-                var materialPink = new THREE.MeshPhongMaterial( { color: 0xEA2130, specular: 0xEA2130, shininess: 10 } );
-                var materialB = new THREE.MeshPhongMaterial( { color: 0x524796, specular: 0x524796, shininess: 10 } );    
+                var materialPink = new THREE.MeshPhongMaterial( { color: 0xEA2130, specular: 0xffffff, shininess: 10 } );
+                var materialB = new THREE.MeshPhongMaterial( { color: 0x524796, specular: 0x524796, shininess: 20000 } );    
                 var materialC = new THREE.MeshPhongMaterial( { color: 0xefefef, specular: 0xefefef, shininess: 200 } );
+
+                var material =  materialB;
+
+
+
 
                 // A
                 loader.load( 'assets/stl/a-bin.stl', function ( geometry ) {
 
-                    var mesh = new THREE.Mesh( geometry, materialPink );
+                    var mesh = new THREE.Mesh( geometry, material );
 
-                    mesh.position.set( 0, - 0.50, 0 );
+                    mesh.position.set( 0, 0, 0 );
                     mesh.rotation.set( - Math.PI / 2, 0, 0 );
-                    mesh.scale.set( .02, .02, .02 );
+                    mesh.scale.set( 1, 1, 1 );
 
                     mesh.castShadow = true;
                     mesh.receiveShadow = true;
@@ -77,11 +82,11 @@
                 loader.load( 'assets/stl/b-bin.stl', function ( geometry ) {
 
            
-                    var mesh = new THREE.Mesh( geometry, materialB );
+                    var mesh = new THREE.Mesh( geometry, material );
 
-                    mesh.position.set( 0.65, - 0.50, 0 );
+                    mesh.position.set( 32, 0, 0 );
                     // mesh.rotation.set( - Math.PI / 2, 0, 0 );
-                    mesh.scale.set( 0.02, 0.02, 0.02 );
+                    mesh.scale.set( 1, 1, 1 );
 
                     mesh.castShadow = true;
                     mesh.receiveShadow = true;
@@ -91,32 +96,34 @@
                 } );
 
                 // C
-                
 
                 loader.load( 'assets/stl/c-bin.stl', function ( geometry ) {
 
-                    var mesh = new THREE.Mesh( geometry, materialC );
+           
+                    var mesh = new THREE.Mesh( geometry, material );
 
-                    mesh.position.set( 1.3, - 0.50, 0 );
-                    mesh.rotation.set( - Math.PI / 2, 0, 0 );
-                    mesh.scale.set( .02, .02, .02 );
+                    mesh.position.set( 72, 0, 0 );
+                    // mesh.rotation.set( - Math.PI / 2, 0, 0 );
+                     mesh.scale.set( 1, 1, 1 );
 
                     mesh.castShadow = true;
                     mesh.receiveShadow = true;
 
                     scene.add( mesh );
 
-                } );
+                } );                
+
+
 
                 // GROUND
                 var materialGround = new THREE.MeshPhongMaterial( { color: 0x515552, specular: 0x111111, shininess: 20 } );
-                loader.load( 'assets/stl/31x31.stl', function ( geometry ) {
+                loader.load( 'assets/stl/32x32_bin.stl', function ( geometry ) {
 
                     var mesh = new THREE.Mesh( geometry, materialGround );
 
-                    mesh.position.set( -1.6, - 0.570, 1.6 );
+                    mesh.position.set( -96, -3, 96 );
                     mesh.rotation.set( - Math.PI / 2, 0, 0 );
-                    mesh.scale.set( .02, .02, .02 );
+                    mesh.scale.set( 1, 1, 1 );
 
                     // mesh.castShadow = true;
                     mesh.receiveShadow = true;
@@ -124,6 +131,10 @@
                     scene.add( mesh );
 
                 } );
+
+
+
+
 
                 // loader.load( 'assets/stl/pr2_head_pan.stl', function ( geometry ) {
 
@@ -179,12 +190,25 @@
 
                 // Lights
 
-                scene.add( new THREE.AmbientLight( 0xefefef ) );
+                // scene.add( new THREE.AmbientLight( 0xefefef ) );
+// var bluePoint = new THREE.PointLight(0x00ffff, 1, 0);
+// bluePoint.position.set( 70, 5, 70 );
+// scene.add(bluePoint);
+// scene.add(new THREE.PointLightHelper(bluePoint, 3));
+//   
+// var greenPoint = new THREE.PointLight(0xff0000, 1, 0);
+// greenPoint.position.set( -70, 5, 70 );
+// scene.add(greenPoint);
+// scene.add(new THREE.PointLightHelper(greenPoint, 3));
 
 
+                addShadowedLight( 1, 3, 1, 0xb5a3a3, 1.2 );
+                addShadowedLight( 1, 5, -1, 0xb5a3a3, .9 );
+// 
 
-                addShadowedLight( 1, 3, 1, 0xb5a3a3, 0.2 );
-                addShadowedLight( 0.5, 1, -1, 0xb5a3a3, .3 );
+
+                var hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.4 ); 
+                scene.add(  hemiLight);  
 
 
                 // renderer
@@ -204,10 +228,10 @@
 
                 // stats
 
-                // stats = new Stats();
-                // stats.domElement.style.position = 'absolute';
-                // stats.domElement.style.top = '90px';
-                // document.body.appendChild( stats.domElement );
+                stats = new Stats();
+                stats.domElement.style.position = 'absolute';
+                stats.domElement.style.top = '90px';
+                document.body.appendChild( stats.domElement );
 
                 
 
@@ -232,16 +256,16 @@
                 scene.add( directionalLight );
 
                 directionalLight.castShadow = true;
-                // directionalLight.shadowCameraVisible = true;
+                directionalLight.shadowCameraVisible = false;
 
-                var d = 1;
+                var d = 3;
                 directionalLight.shadowCameraLeft = -d;
                 directionalLight.shadowCameraRight = d;
                 directionalLight.shadowCameraTop = d;
                 directionalLight.shadowCameraBottom = -d;
 
                 directionalLight.shadowCameraNear = 1;
-                directionalLight.shadowCameraFar = 4;
+                directionalLight.shadowCameraFar = 10;
 
                 directionalLight.shadowMapWidth = 1024;
                 directionalLight.shadowMapHeight = 1024;

@@ -70,6 +70,17 @@ gulp.task('js', function() {
 });
  
 
+// ---- JS addon 
+gulp.task('addon', function() {
+  return gulp.src('src/addon/*.js')
+    .pipe( uglify() )
+    .pipe( concat('addon.min.js'))
+    .pipe( gulp.dest('dist/assets/js/'))
+    .pipe(connect.reload());
+});
+ 
+
+
 // --- Images ---
 gulp.task('images', function() {
   return gulp.src(source_paths.image)
@@ -114,13 +125,14 @@ gulp.task('watch', function () {
   gulp.watch('src/**/*.jade',['jade']); 	// JADE
   gulp.watch('src/img/**/*.*',['images']); 	// IMAGES
   gulp.watch('src/stl/**/*.*',['stl']);  // STL
-  gulp.watch('src/js/*.js'	,['js']); 		// JS
+  gulp.watch('src/js/*.js'  ,['js']);     // JS
+  gulp.watch('src/addon/*.js'	,['addon']); 		// JS
 });
 
 
 // --- Tasks ---
 gulp.task('build', ['clean'], function() {
-    gulp.start('css', 'js', 'jade','images','stl','vendor');
+    gulp.start('css', 'js','addon', 'jade','images','stl','vendor');
 });
 
 gulp.task('vendor', ['bootstrap','jquery','threejs']);
