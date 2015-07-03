@@ -11,20 +11,17 @@
                 container = document.createElement( 'div' );
                 document.body.appendChild( container );
 
-                camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15 );
-                camera.position.set( 3, 3.15, 3 );
+                camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, .1, 15 );
+                
 
-                cameraTarget = new THREE.Vector3( 0, -0.25, 0 );
+
 
                 scene = new THREE.Scene();
-                scene.fog = new THREE.Fog( 0x72645b, 2, 15 );
+                scene.fog = new THREE.Fog( 0xefefef, 2, 100.5 );
 
 
 
-// // CONTROLS
-controls = new THREE.OrbitControls( camera );
-controls.damping = 0.2;
-controls.addEventListener( 'change', render );
+
 
 
                 // TEXTURE GROUND
@@ -52,67 +49,16 @@ controls.addEventListener( 'change', render );
 
                 // plane.receiveShadow = true;
 
-
-
-                // 3D GROUND
-
-
-
-
-
-                // ASCII file
-
-                // var loader = new THREE.STLLoader();
-                // loader.load( 'assets/stl/slotted_disk.stl', function ( geometry ) {
-
-                //     var material = new THREE.MeshPhongMaterial( { color: 0xff5533, specular: 0x111111, shininess: 200 } );
-                //     var mesh = new THREE.Mesh( geometry, material );
-
-                //     mesh.position.set( 0, - 0.25, 0.6 );
-                //     mesh.rotation.set( 0, - Math.PI / 2, 0 );
-                //     mesh.scale.set( 0.5, 0.5, 0.5 );
-
-                //     mesh.castShadow = true;
-                //     mesh.receiveShadow = true;
-
-                //     scene.add( mesh );
-
-                // } );
-
-    // // SKYBOX/FOG
-    // var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
-    // var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, side: THREE.BackSide } );
-    // var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
-    // scene.add(skyBox);
-
-
-
-
-
-                // B    
                 var loader = new THREE.STLLoader();
-                loader.load( 'assets/stl/b-bin.stl', function ( geometry ) {
+                
+                var materialPink = new THREE.MeshPhongMaterial( { color: 0xEA2130, specular: 0xEA2130, shininess: 10 } );
+                var materialB = new THREE.MeshPhongMaterial( { color: 0x524796, specular: 0x524796, shininess: 10 } );    
+                var materialC = new THREE.MeshPhongMaterial( { color: 0xefefef, specular: 0xefefef, shininess: 200 } );
 
-                    var material = new THREE.MeshPhongMaterial( { color: 0x524796, specular: 0x111111, shininess: 200 } );
-                    var mesh = new THREE.Mesh( geometry, material );
-
-                    mesh.position.set( 0.65, - 0.50, 0 );
-                    mesh.rotation.set( - Math.PI / 2, 0, 0 );
-                    mesh.scale.set( 0.02, 0.02, 0.02 );
-
-                    mesh.castShadow = true;
-                    mesh.receiveShadow = true;
-
-                    scene.add( mesh );
-
-                } );
                 // A
-                var material = new THREE.MeshPhongMaterial( { color: 0xEA2130, specular: 0xFF0000, shininess: 200 } );
-
-
                 loader.load( 'assets/stl/a-bin.stl', function ( geometry ) {
 
-                    var mesh = new THREE.Mesh( geometry, material );
+                    var mesh = new THREE.Mesh( geometry, materialPink );
 
                     mesh.position.set( 0, - 0.50, 0 );
                     mesh.rotation.set( - Math.PI / 2, 0, 0 );
@@ -125,9 +71,27 @@ controls.addEventListener( 'change', render );
 
                 } );
 
-                // C
-                var materialC = new THREE.MeshPhongMaterial( { color: 0xefefef, specular: 0xFF0000, shininess: 200 } );
 
+                // B    
+                
+                loader.load( 'assets/stl/b-bin.stl', function ( geometry ) {
+
+           
+                    var mesh = new THREE.Mesh( geometry, materialB );
+
+                    mesh.position.set( 0.65, - 0.50, 0 );
+                    // mesh.rotation.set( - Math.PI / 2, 0, 0 );
+                    mesh.scale.set( 0.02, 0.02, 0.02 );
+
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+
+                    scene.add( mesh );
+
+                } );
+
+                // C
+                
 
                 loader.load( 'assets/stl/c-bin.stl', function ( geometry ) {
 
@@ -155,7 +119,7 @@ controls.addEventListener( 'change', render );
                     mesh.scale.set( .02, .02, .02 );
 
                     // mesh.castShadow = true;
-                    // mesh.receiveShadow = true;
+                    mesh.receiveShadow = true;
 
                     scene.add( mesh );
 
@@ -215,12 +179,12 @@ controls.addEventListener( 'change', render );
 
                 // Lights
 
-                scene.add( new THREE.AmbientLight( 0x777777 ) );
+                scene.add( new THREE.AmbientLight( 0xefefef ) );
 
 
 
-                addShadowedLight( 1, 3, 1, 0xb5a3a3, 1.35 );
-                addShadowedLight( 0.5, 1, -1, 0xb5a3a3, 1 );
+                addShadowedLight( 1, 3, 1, 0xb5a3a3, 0.2 );
+                addShadowedLight( 0.5, 1, -1, 0xb5a3a3, .3 );
 
 
                 // renderer
@@ -240,12 +204,22 @@ controls.addEventListener( 'change', render );
 
                 // stats
 
-                stats = new Stats();
-                stats.domElement.style.position = 'absolute';
-                stats.domElement.style.top = '90px';
-                document.body.appendChild( stats.domElement );
+                // stats = new Stats();
+                // stats.domElement.style.position = 'absolute';
+                // stats.domElement.style.top = '90px';
+                // document.body.appendChild( stats.domElement );
 
                 
+
+                camera.position.set( .8, 3, 2 );
+                cameraTarget = new THREE.Vector3( 0.65, - 0.50, 0 );
+                camera.lookAt( cameraTarget );
+
+                                // CONTROLS
+                controls = new THREE.OrbitControls( camera );
+                controls.damping = 0.2;
+                controls.addEventListener( 'change', render );
+                controls.target = cameraTarget;
 
                 window.addEventListener( 'resize', onWindowResize, false );
 
@@ -302,7 +276,7 @@ controls.addEventListener( 'change', render );
                 // camera.position.x = Math.cos( timer ) * 3;
                 // camera.position.z = Math.sin( timer ) * 3;
 
-                camera.lookAt( cameraTarget );
+                // camera.lookAt( cameraTarget );
 
                 renderer.render( scene, camera );
 
