@@ -21,9 +21,6 @@
 
 
 
-
-
-
                 // TEXTURE GROUND
 
                 // var floorTexture = new THREE.ImageUtils.loadTexture( 'assets/img/floor2.jpg' );
